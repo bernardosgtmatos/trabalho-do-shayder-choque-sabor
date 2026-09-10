@@ -1,9 +1,9 @@
-const User = require('../model/UserModel.js')
+const User = require('../models/UserModel.js')
 
 const CreateUser = async (req , res) => {
     const {nome, email, senha } = req.body
     if (!nome || !email || !senha){
-        return res.status(500).json("Todos os campos são obrigatórios")
+        return res.status(400).json("Todos os campos são obrigatórios")
     }
     const existUser = await User.findOne({ where: { email } })
     console.log(existUser)
@@ -19,7 +19,9 @@ const CreateUser = async (req , res) => {
         })
         return res.status(200).json("Usuario criado!")
     }catch(error){
-        return res.status(500).json("Erro ao criar usuario!")
+        return res.status(500).json({
+            Error: `error ao criar usuario ${error}`
+        })
     }
 }
 

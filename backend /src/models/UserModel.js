@@ -26,12 +26,12 @@ const owner = sequelize.define('owner' ,{ //admin
 
 });
 
-User.beforeCreate(async (user) => {
+owner.beforeCreate(async (user) => {
     const salt = await bcrypt.genSalt(10);
     user.senha = await bcrypt.hash(user.senha, salt); //haseia a senha antes de salvar
 });
 
-User.beforeUpdate(async (user) => {
+owner.beforeUpdate(async (user) => {
     if (user.changed('senha')) {
         const salt = await bcrypt.genSalt(10);
         user.senha = await bcrypt.hash(user.senha, salt); //hasheia a senha quando troca 
@@ -39,7 +39,7 @@ User.beforeUpdate(async (user) => {
 });
 
 
-User.prototype.validSenha = async function (senha) {
+owner.prototype.validSenha = async function (senha) {
     return await bcrypt.compare(senha, this.senha);
 };
 
