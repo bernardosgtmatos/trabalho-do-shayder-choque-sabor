@@ -26,5 +26,23 @@ const owner = sequelize.define('owner' ,{ //admin
 
 });
 
-owner.sync({alter: true})
+User.beforeCreate(async (user) => {
+    const salt = await bcrypt.genSalt(10);
+    user.senha = await bcrypt.hash(user.senha, salt); //haseia a senha antes de salvar
+});
+
+User.beforeUpdate(async (user) => {
+    if (user.changed('senha')) {
+        const salt = await bcrypt.genSalt(10);
+        user.senha = await bcrypt.hash(user.senha, salt); //hasheia a senha quando troca 
+    }
+});
+
+
+User.prototype.validSenha = async function (senha) {
+    return await bcrypt.compare(senha, this.senha);
+};
+
+
+// owner.sync({alter: true})
 module.exports = {owner}
