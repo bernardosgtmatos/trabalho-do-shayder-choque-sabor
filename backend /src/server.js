@@ -9,14 +9,14 @@ const port = process.env.PORT || 8080
 
 //import routes
 const EventRoute = require('./routes/EventRoutes.js')
-// const OwnerRoute = require('./routes/OwnerRoutes.js') ta crashando deixar comentando por enquanto
+const OwnerRoute = require('./routes/OwnerRoutes.js')
 
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-app.use('/admin', EventRoute)
+app.use('/admin', EventRoute, OwnerRoute)
 
 app.listen(port, () => {
     console.log(`rodando na porta ${port}`);
