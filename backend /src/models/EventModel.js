@@ -93,16 +93,16 @@ const itens_pedido = sequelize.define('itens_pedido', { // para cada produto dif
 });
 
 //relacionamento
-Clientes.hasMany(Pedido, { foreignKey: 'cliente_id' }); //Um cliente tem muitos pedidos
-Pedido.belongsTo(Cliente, { foreignKey: 'cliente_id' }); //Um pedido pertence a um cliente
+Clientes.hasMany(Pedido,{ foreignKey: 'cliente_id' }); //Um cliente tem muitos pedidos
+Pedido.belongsTo(Clientes, { foreignKey: 'cliente_id' }); //Um pedido pertence a um cliente
 
-Pedido.hasMany(ItemPedido, { foreignKey: 'pedido_id' }); //Um pedido tem muitos itens
-itens_pedido.belongsTo(Pedido, { foreignKey: 'pedido_id' }); //Um item pertence a um pedido
+Pedido.hasMany(itens_pedido, { foreignKey: 'Pedido_id' }); //Um pedido tem muitos itens
+itens_pedido.belongsTo(Pedido, { foreignKey: 'Pedido_id' }); //Um item pertence a um pedido
 
-// syncs / sera retirado dps
-Clientes.sync({alter: true});
-Produtos.sync({alter: true});
-Pedido.sync({alter: true});
-itens_pedido.sync({alter: true});
+
+// Clientes.sync({alter: true});
+// Produtos.sync({alter: true});
+// Pedido.sync({alter: true});
+// itens_pedido.sync({alter: true});
 
 module.exports = {Clientes, Produtos, Pedido, itens_pedido}
