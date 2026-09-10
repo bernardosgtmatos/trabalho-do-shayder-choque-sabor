@@ -45,4 +45,4 @@ owner.prototype.validSenha = async function (senha) {
 
 
 // owner.sync({alter: true})
-module.exports = {owner}
+module.exports = owner

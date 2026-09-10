@@ -16,7 +16,8 @@ const OwnerRoute = require('./routes/OwnerRoutes.js')
 app.use(cors());
 app.use(express.json());
 
-app.use('/admin', EventRoute, OwnerRoute)
+app.use('/NewProduct', EventRoute)
+app.use('/admin', OwnerRoute)
 
 app.listen(port, () => {
     console.log(`rodando na porta ${port}`);
