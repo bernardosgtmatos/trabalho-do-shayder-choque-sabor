@@ -100,7 +100,7 @@ const newOrder = async (req, res) => { // func de criação de pedido
 const listProdutos = async (req, res) => {
     try {
         const produtos = await Produtos.findAll({
-            attributes: ['nome', 'descrição', 'valor']
+            attributes: ['id', 'nome', 'descrição', 'valor']
         });
         return res.status(200).json(produtos)
     } catch (error) {
