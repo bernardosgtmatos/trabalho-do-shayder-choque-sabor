@@ -1,0 +1,42 @@
+meu-projeto/
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── app.js
+│   ├── server.js
+│   └── package.json
+│
+├── frontend/ <----- to aqui>
+│   ├── public/
+│   │   └── favicon.ico
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   │   ├── Button/
+│   │   │   │   ├── Button.jsx
+│   │   │   │   └── Button.css
+│   │   │   └── Header/
+│   │   ├── pages/
+│   │   │   ├── Home/
+│   │   │   └── Login/
+│   │   ├── layouts/
+│   │   ├── hooks/
+│   │   ├── contexts/
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── utils/
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+│
+├── .gitignore
+└── README.md
