@@ -1,8 +1,8 @@
 const express = require('express');
-const {newProduct ,} = require('../controllers/EventsController.js');
+const {newOrder ,} = require('../controllers/EventsController.js');
 
 const EventRoute = express();
-
-EventRoute.post('/', newProduct)
+//EventRoute.js
+EventRoute.post('/Pedido', newOrder)
 
 module.exports = EventRoute;

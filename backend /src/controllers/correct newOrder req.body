@@ -1,0 +1,14 @@
+{
+  "nome": "João Silva",
+  "telefone": "(11) 99999-9999",
+  "endereço": {
+    "rua": "Joao Phelippe",
+    "bairro": "Pombal",
+    "cidade": "Ibiraçi",
+    "estado": "ES"
+  },
+  "itens": [
+    { "produto_id": "a9cac80d-3255-483f-85f8-e3e7b2dbe4b6", "quatidade": 2 },
+    { "produto_id": "1b8c8143-ecd9-42a4-8ab1-08f83eef3ffc", "quatidade": 2 }
+  ]
+}
