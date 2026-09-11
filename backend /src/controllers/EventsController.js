@@ -97,4 +97,14 @@ const newOrder = async (req, res) => { // func de criação de pedido
 }
 
 //precisa de um controller para listar os produtos para o Usuario
-module.exports = {newOrder, newProduct}
+const listProdutos = async (req, res) => {
+    try {
+        const produtos = await Produtos.findAll({
+            attributes: ['nome', 'descrição', 'valor']
+        });
+        return res.status(200).json(produtos)
+    } catch (error) {
+        return res.status(500).json(`Erro ao listar produtos ${error}`)
+    }
+}
+module.exports = {newOrder, newProduct , listProdutos}
