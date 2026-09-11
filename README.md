@@ -6,3 +6,8 @@ npm install sequelize sqlite3 jsonwebtoken
 npm install express cors
 
 npm install dotenv
+
+backend utilizando express
+frontend utilizando react + vite
+
+pasta frontend foi criada usando 'npm create vite@latest frontend -- --template react-ts'
