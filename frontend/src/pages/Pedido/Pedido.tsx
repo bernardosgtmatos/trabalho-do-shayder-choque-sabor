@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import api from '../../services/api';
 import './Pedido.css';
 
-interface Produto {
-  id: string;
-  nome: string;
+interface Produto { // o interface é o que o frontend recebe
+  id: string;       //necessariamente é importante ter isso para
+  nome: string;     //ter montado exatamente oque o frontend recebe do backend
   'descrição': string;
   valor: number;
 }
@@ -14,7 +14,7 @@ interface ItemPedido {
   quatidade: number;
 }
 
-function Pedido() {
+function Pedido() { //talvez seja importante criptografar esses dados quando enviados usando o bcryptjs pq dai quando os dados chegarem no backend eles são descriptografados com a chave guarda dentro no .env
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
