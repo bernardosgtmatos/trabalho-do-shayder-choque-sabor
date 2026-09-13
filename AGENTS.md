@@ -37,8 +37,10 @@ npm run lint       # eslint .
 - **No `typecheck` script** — frontend type-checking only happens via `npm run build` (`tsc -b`). Run `npx tsc -b --noEmit` for a standalone check.
 - **No backend tests or lint** — there are no test or lint scripts in `backend/package.json`.
 - **Port mismatch** — `server.js` defaults to `8080` if `PORT` env is unset, but `.env` sets `5000`. Ensure `.env` is loaded.
-- **Model sync is commented out** in `backend/src/models/EventModel.js` and `UserModel.js`. Tables are created by the controllers or need manual `sync()`.
+- **Model sync is commented out** in `backend/src/models/EventModel.js` (lines 103-106) and `UserModel.js` (line 47). Tables are never auto-created — you must uncomment the `.sync()` calls or run them manually once for the app to work.
 - Backend uses `express()` router instances (not `express.Router()`), then mounts them via `app.use()`.
+- `backend/src/controllers/correct newOrder req.body` is a JSON sample file, not code — skip it.
+- `UserModel.js` uses `AllowNull` (capital A) on lines 8 and 12 — this is a typo (Sequelize expects lowercase `allowNull`), so those fields may silently allow nulls.
 - Route names and field names are in Portuguese (`/Pedido`, `/Produtos`, `/NovoUsuario`, `/NovoProduto`, `endereço`, `quatidade`, `senha`).
 
 ## Verification
