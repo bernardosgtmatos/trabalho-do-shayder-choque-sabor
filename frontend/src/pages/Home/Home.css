@@ -8,13 +8,14 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: 40px 20px;
 }
 
 .home-ellipses {
   position: relative;
   width: 260px;
   height: 200px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 .ellipse {
@@ -47,16 +48,22 @@
 }
 
 .home-title {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 3rem;
   font-weight: 800;
   color: white;
-  margin-bottom: 30px;
   text-shadow: 0 2px 8px rgba(78, 17, 153, 0.3);
+  white-space: nowrap;
+  z-index: 10;
 }
 
 .home-cta {
   display: inline-block;
   padding: 14px 40px;
+  margin-top: 10px;
   background-color: #6824BC;
   color: white;
   text-decoration: none;
@@ -72,9 +79,10 @@
   box-shadow: 0 8px 25px rgba(104, 36, 188, 0.4);
 }
 
-@media (max-width: 768px) {
-  .home-title {
-    font-size: 2.2rem;
+@media (max-width: 480px) {
+  .home {
+    min-height: 70vh;
+    padding: 30px 16px;
   }
 
   .home-ellipses {
@@ -95,5 +103,14 @@
   .ellipse-3 {
     width: 140px;
     height: 135px;
+  }
+
+  .home-title {
+    font-size: 2.2rem;
+  }
+
+  .home-cta {
+    padding: 12px 32px;
+    font-size: 1rem;
   }
 }
