@@ -1,0 +1,158 @@
+.cardapio {
+  max-width: 412px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cardapio-title-bar {
+  background-color: #6824BC;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.cardapio-info {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  background: #D8B8FE;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.cardapio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.cardapio-card {
+  background: #6824BC;
+  border-radius: 30px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.cardapio-card:hover {
+  transform: translateY(-3px);
+}
+
+.cardapio-card.selecionado {
+  box-shadow: 0 0 0 3px #FFF700;
+}
+
+.cardapio-card-imagem {
+  width: 100%;
+  height: 160px;
+  background: #D8B8FE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px 30px 0 0;
+}
+
+.cardapio-card-placeholder {
+  color: #6824BC;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px;
+}
+
+.cardapio-card-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.cardapio-card-info h3 {
+  margin: 0 0 5px 0;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.cardapio-card-info p {
+  margin: 0 0 8px 0;
+  color: #D8B8FE;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.cardapio-card-preco {
+  display: inline-block;
+  background: #4E1199;
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 4px 16px;
+  border-radius: 14px;
+}
+
+.cardapio-card-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px 15px 15px;
+}
+
+.cardapio-card-controls button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: #FFF700;
+  color: #4E1199;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cardapio-card-controls button:hover:not(:disabled) {
+  background: #e6e000;
+}
+
+.cardapio-card-controls button:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.cardapio-qtd {
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 30px;
+  text-align: center;
+  color: white;
+}
+
+.cardapio-fazer-pedido {
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px 20px;
+  background: #FFF700;
+  color: #4E1199;
+  border: none;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 247, 0, 0.3);
+}
+
+.cardapio-fazer-pedido:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 247, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+  .cardapio-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,7 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  if (isHome) return null;
+
   return (
     <header className="header">
       <div className="header-container">
@@ -10,8 +15,8 @@ function Header() {
         </Link>
 
         <nav className="nav">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/pedido" className="nav-link">Pedir</Link>
+          <Link to="/" className="nav-btn nav-btn-purple">Home</Link>
+          <Link to="/cardapio" className="nav-btn nav-btn-purple">Cardápio</Link>
         </nav>
       </div>
     </header>

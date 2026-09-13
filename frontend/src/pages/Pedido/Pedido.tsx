@@ -1,90 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import './Pedido.css';
 
-interface Produto { // o interface é o que o frontend recebe
-  id: string;       //necessariamente é importante ter isso para
-  nome: string;     //ter montado exatamente oque o frontend recebe do backend
-  'descrição': string;
+interface ItemRecebido {
+  produto_id: string;
+  quatidade: number;
+  nome: string;
   valor: number;
 }
 
-interface ItemPedido {
-  produto_id: string;
-  quatidade: number;
+interface PedidoState {
+  itens: ItemRecebido[];
 }
 
-function Pedido() { //talvez seja importante criptografar esses dados quando enviados usando o bcryptjs pq dai quando os dados chegarem no backend eles são descriptografados com a chave guarda dentro no .env
-  const [produtos, setProdutos] = useState<Produto[]>([]);
+function Pedido() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state as PedidoState | null;
+  const itens = state?.itens || [];
+
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
   const [rua, setRua] = useState('');
   const [numero, setNumero] = useState('');
   const [bairro, setBairro] = useState('');
-  const [itens, setItens] = useState<ItemPedido[]>([]);
   const [mensagem, setMensagem] = useState('');
-  const [carregando, setCarregando] = useState(true);
-
-  useEffect(() => {
-    api.get('/Cliente/Produtos')
-      .then((response) => {
-        setProdutos(response.data);
-        setCarregando(false);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar produtos:', error);
-        setCarregando(false);
-      });
-  }, []);
-
-  function handleAddItem(produtoId: string) {
-    const existing = itens.find(item => item.produto_id === produtoId);
-
-    if (existing) {
-      setItens(itens.map(item =>
-        item.produto_id === produtoId
-          ? { ...item, quatidade: item.quatidade + 1 }
-          : item
-      ));
-    } else {
-      setItens([...itens, { produto_id: produtoId, quatidade: 1 }]);
-    }
-  }
-
-  function handleRemoveItem(produtoId: string) {
-    const existing = itens.find(item => item.produto_id === produtoId);
-
-    if (existing && existing.quatidade > 1) {
-      setItens(itens.map(item =>
-        item.produto_id === produtoId
-          ? { ...item, quatidade: item.quatidade - 1 }
-          : item
-      ));
-    } else {
-      setItens(itens.filter(item => item.produto_id !== produtoId));
-    }
-  }
-
-  function getQuantidadeItem(produtoId: string): number {
-    const item = itens.find(i => i.produto_id === produtoId);
-    return item ? item.quatidade : 0;
-  }
 
   function calcularTotal(): number {
-    return itens.reduce((total, item) => {
-      const produto = produtos.find(p => p.id === item.produto_id);
-      if (produto) {
-        return total + (produto.valor * item.quatidade);
-      }
-      return total;
-    }, 0);
+    return itens.reduce((total, item) => total + (item.valor * item.quatidade), 0);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (itens.length === 0) {
-      setMensagem('Adicione pelo menos um item ao pedido.');
+      setMensagem('Nenhum item no pedido. Volte ao cardápio.');
       return;
     }
 
@@ -96,7 +47,10 @@ function Pedido() { //talvez seja importante criptografar esses dados quando env
         numero,
         bairro,
       },
-      itens,
+      itens: itens.map(i => ({
+        produto_id: i.produto_id,
+        quatidade: i.quatidade,
+      })),
     };
 
     try {
@@ -107,18 +61,52 @@ function Pedido() { //talvez seja importante criptografar esses dados quando env
       setRua('');
       setNumero('');
       setBairro('');
-      setItens([]);
     } catch (error) {
       setMensagem('Erro ao realizar pedido. Tente novamente.');
       console.error('Erro:', error);
     }
   }
 
+  if (itens.length === 0) {
+    return (
+      <div className="pedido">
+        <div className="pedido-title-bar">
+          <span>Faça seu Pedido</span>
+        </div>
+        <div className="pedido-vazio">
+          <p>Nenhum item selecionado.</p>
+          <button type="button" className="pedido-voltar" onClick={() => navigate('/cardapio')}>
+            Voltar ao Cardápio
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pedido">
-      <h1>Faça seu Pedido</h1>
+      <div className="pedido-title-bar">
+        <span>Faça seu Pedido</span>
+      </div>
 
       <form onSubmit={handleSubmit} className="pedido-form">
+        <div className="form-section">
+          <h2>Itens do Pedido</h2>
+          <div className="pedido-itens">
+            {itens.map((item) => (
+              <div key={item.produto_id} className="pedido-item">
+                <span className="pedido-item-nome">{item.nome}</span>
+                <span className="pedido-item-qtd">{item.quatidade}x</span>
+                <span className="pedido-item-preco">R$ {(item.valor * item.quatidade).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="pedido-total">
+              <strong>Total:</strong>
+              <strong>R$ {calcularTotal().toFixed(2)}</strong>
+            </div>
+          </div>
+        </div>
+
         <div className="form-section">
           <h2>Dados Pessoais</h2>
           <div className="form-group">
@@ -183,73 +171,6 @@ function Pedido() { //talvez seja importante criptografar esses dados quando env
             </div>
           </div>
         </div>
-
-        <div className="form-section">
-          <h2>Produtos</h2>
-          {carregando ? (
-            <p className="mensagem-info">Carregando produtos...</p>
-          ) : produtos.length === 0 ? (
-            <p className="mensagem-info">Nenhum produto disponível no momento.</p>
-          ) : (
-            <div className="produtos-list">
-              {produtos.map((produto) => (
-              <div key={produto.id} className="produto-item">
-                {/* PLACEHOLDER: Imagem do produto - substitua o conteudo deste div pela tag <img> com a URL da imagem */}
-                <div className="produto-imagem">
-                  <span className="produto-imagem-placeholder">
-                    Imagem do produto
-                  </span>
-                </div>
-                <div className="produto-info">
-                  <h3>{produto.nome}</h3>
-                  <p>{produto['descrição']}</p>
-                  <span className="produto-valor">
-                    R$ {Number(produto.valor).toFixed(2)}
-                  </span>
-                </div>
-                <div className="produto-controls">
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveItem(produto.id)}
-                    disabled={getQuantidadeItem(produto.id) === 0}
-                  >
-                    -
-                  </button>
-                  <span className="quantidade">{getQuantidadeItem(produto.id)}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleAddItem(produto.id)}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {itens.length > 0 && (
-          <div className="pedido-resumo">
-            <h2>Resumo do Pedido</h2>
-            <div className="resumo-itens">
-              {itens.map((item) => {
-                const produto = produtos.find(p => p.id === item.produto_id);
-                if (!produto) return null;
-                return (
-                  <div key={item.produto_id} className="resumo-item">
-                    <span>{item.quatidade}x {produto.nome}</span>
-                    <span>R$ {(produto.valor * item.quatidade).toFixed(2)}</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="resumo-total">
-              <strong>Total:</strong>
-              <strong>R$ {calcularTotal().toFixed(2)}</strong>
-            </div>
-          </div>
-        )}
 
         <button type="submit" className="submit-button">
           Finalizar Pedido
