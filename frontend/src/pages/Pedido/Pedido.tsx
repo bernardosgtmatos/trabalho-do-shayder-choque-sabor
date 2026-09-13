@@ -194,6 +194,12 @@ function Pedido() { //talvez seja importante criptografar esses dados quando env
             <div className="produtos-list">
               {produtos.map((produto) => (
               <div key={produto.id} className="produto-item">
+                {/* PLACEHOLDER: Imagem do produto - substitua o conteudo deste div pela tag <img> com a URL da imagem */}
+                <div className="produto-imagem">
+                  <span className="produto-imagem-placeholder">
+                    Imagem do produto
+                  </span>
+                </div>
                 <div className="produto-info">
                   <h3>{produto.nome}</h3>
                   <p>{produto['descrição']}</p>

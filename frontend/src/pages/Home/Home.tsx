@@ -13,6 +13,9 @@ function Home() {
           <Link to="/cardapio" className="cta-button">
             Ver Cardápio
           </Link>
+          <Link to="/pedido" className="cta-button secondary">
+            Faça seu Pedido
+          </Link>
         </div>
       </section>
 
@@ -41,9 +44,6 @@ function Home() {
           emdelivery. Nosso compromisso é com a qualidade e a satisfação dos
           nossos clientes.
         </p>
-        <Link to="/pedido" className="cta-button secondary">
-          Faça seu Pedido
-        </Link>
       </section>
     </div>
   );

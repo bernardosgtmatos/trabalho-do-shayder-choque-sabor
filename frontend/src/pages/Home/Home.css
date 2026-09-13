@@ -4,7 +4,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(135deg, #6824BC 0%, #7C28E2 100%);
   color: white;
   padding: 80px 20px;
   text-align: center;
@@ -29,8 +29,8 @@
 .cta-button {
   display: inline-block;
   padding: 15px 40px;
-  background-color: white;
-  color: #ff6b35;
+  background-color: #FFF700;
+  color: #4E1199;
   text-decoration: none;
   border-radius: 30px;
   font-weight: 700;
@@ -44,14 +44,14 @@
 }
 
 .cta-button.secondary {
-  background-color: #ff6b35;
-  color: white;
-  border: 2px solid white;
+  background-color: #FFF700;
+  color: #4E1199;
+  border: 2px solid #6824BC;
 }
 
 .cta-button.secondary:hover {
-  background-color: white;
-  color: #ff6b35;
+  background-color: #FFF700;
+  color: #4E1199;
 }
 
 /* Features Section */
@@ -61,16 +61,16 @@
   gap: 40px;
   padding: 60px 20px;
   flex-wrap: wrap;
-  background-color: #f9f9f9;
+  background-color: #D8B8FE;
 }
 
 .feature-card {
-  background: white;
+  background: #6824BC;
   padding: 40px 30px;
-  border-radius: 15px;
+  border-radius: 30px;
   text-align: center;
   max-width: 280px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s;
 }
 
@@ -87,11 +87,11 @@
 .feature-card h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: white;
 }
 
 .feature-card p {
-  color: #666;
+  color: #D8B8FE;
   font-size: 0.95rem;
 }
 
@@ -106,7 +106,7 @@
 .about-section h2 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #4E1199;
 }
 
 .about-section p {

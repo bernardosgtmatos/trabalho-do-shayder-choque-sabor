@@ -1,5 +1,5 @@
 .header {
-  background-color: white;
+  background-color: #6824BC;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -22,7 +22,7 @@
 .logo-text {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #ff6b35;
+  color: white;
 }
 
 .nav {
@@ -32,14 +32,14 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: white;
   font-weight: 600;
   font-size: 1rem;
   transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: #ff6b35;
+  color: #FFF700;
 }
 
 @media (max-width: 768px) {
