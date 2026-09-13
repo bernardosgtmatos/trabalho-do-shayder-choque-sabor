@@ -114,3 +114,84 @@
     font-size: 1rem;
   }
 }
+
+@media (min-width: 768px) {
+  .home {
+    min-height: 85vh;
+    padding: 60px 40px;
+  }
+
+  .home-ellipses {
+    width: 340px;
+    height: 260px;
+    margin-bottom: 70px;
+  }
+
+  .ellipse-1 {
+    width: 210px;
+    height: 200px;
+    top: 25px;
+    left: 55px;
+  }
+
+  .ellipse-2 {
+    width: 135px;
+    height: 128px;
+    top: 105px;
+    left: 145px;
+  }
+
+  .ellipse-3 {
+    width: 240px;
+    height: 230px;
+    top: 105px;
+    left: 0;
+  }
+
+  .home-title {
+    font-size: 4rem;
+  }
+
+  .home-cta {
+    padding: 18px 52px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-ellipses {
+    width: 400px;
+    height: 300px;
+    margin-bottom: 80px;
+  }
+
+  .ellipse-1 {
+    width: 250px;
+    height: 240px;
+    top: 25px;
+    left: 65px;
+  }
+
+  .ellipse-2 {
+    width: 160px;
+    height: 150px;
+    top: 125px;
+    left: 170px;
+  }
+
+  .ellipse-3 {
+    width: 280px;
+    height: 270px;
+    top: 120px;
+    left: 0;
+  }
+
+  .home-title {
+    font-size: 4.5rem;
+  }
+
+  .home-cta {
+    padding: 20px 60px;
+    font-size: 1.3rem;
+  }
+}
