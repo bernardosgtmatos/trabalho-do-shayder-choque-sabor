@@ -5,11 +5,11 @@ const bcrypt = require('bcryptjs');
 const owner = sequelize.define('owner' ,{ //admin
     nome: {
         type: DataTypes.STRING,
-        AllowNull: false,
+        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
-        AllowNull: false,
+        allowNull: false,
         unique : true,
         validate: {
             isEmail: true
