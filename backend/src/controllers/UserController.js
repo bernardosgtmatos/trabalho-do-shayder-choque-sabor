@@ -43,7 +43,13 @@ const login = async (req, res) => {
             process.env.JWT_SECRET,
             {expiresIn : '7d'}
         );
-        return res.status(200).json({token})
+        res.cookie('token', token ,{
+            httpOnly: true,
+            secure: false, //quando for da deploy tem que mudar pra True
+            sameSite: 'strict',
+            maxAge: 604800000
+        });
+        return res.status(200).json('Login realizado!')
     } catch (error) {
         return res.status(500).json(`Erro ao tentar login! ${error}`)
     }

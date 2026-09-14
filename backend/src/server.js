@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const { configDotenv } = require('dotenv')
+const cookieParser = require('cookie-parser')
 
 const port = process.env.PORT || 8080
 
@@ -15,6 +16,7 @@ const OwnerRoute = require('./routes/OwnerRoutes.js')
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser()) //ler os cookies de auth com req
 //server.js
 app.use('/Admin', OwnerRoute)
 app.use('/Cliente', EventRoute)
