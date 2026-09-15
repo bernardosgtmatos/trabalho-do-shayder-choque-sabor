@@ -54,8 +54,8 @@
 }
 
 .admin-pedidos-lista {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
@@ -264,7 +264,7 @@
 
 @media (min-width: 768px) {
   .admin-pedidos {
-    max-width: 600px;
+    max-width: 700px;
     padding: 30px;
   }
 
@@ -278,41 +278,46 @@
     font-size: 1.05rem;
   }
 
+  .admin-pedidos-lista {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
   .admin-pedidos-card {
-    padding: 32px;
+    padding: 24px;
     border-radius: 18px;
   }
 
   .admin-pedidos-data {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .admin-pedidos-total {
-    font-size: 1rem;
-    padding: 4px 18px;
+    font-size: 0.9rem;
+    padding: 4px 14px;
   }
 
   .admin-pedidos-card .form-section h2 {
-    font-size: 1.15rem;
-    padding: 10px 18px;
+    font-size: 1.05rem;
+    padding: 10px 16px;
     margin-bottom: 14px;
   }
 
   .admin-pedidos-cliente {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .admin-pedidos-item {
-    padding: 14px 18px;
+    padding: 10px 14px;
   }
 
   .admin-pedidos-item-nome {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 
   .admin-pedidos-item-qtd,
   .admin-pedidos-item-preco {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
   }
 
   .admin-pedidos-voltar {
@@ -323,7 +328,7 @@
 
 @media (min-width: 1024px) {
   .admin-pedidos {
-    max-width: 700px;
+    max-width: 1000px;
     padding: 40px;
   }
 
@@ -333,17 +338,22 @@
     margin-bottom: 35px;
   }
 
+  .admin-pedidos-lista {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
   .admin-pedidos-card {
-    padding: 40px;
+    padding: 28px;
     border-radius: 20px;
   }
 
   .admin-pedidos-card .form-section h2 {
-    font-size: 1.2rem;
-    padding: 12px 20px;
+    font-size: 1.1rem;
+    padding: 10px 16px;
   }
 
   .admin-pedidos-item {
-    padding: 16px 20px;
+    padding: 10px 14px;
   }
 }

@@ -4,9 +4,9 @@ import axios from 'axios';
 import api from '../../services/api';
 import './AdminPedidos.css';
 
-// Para mostrar mais pedidos por página, aumente este valor
+// Para mostrar mais ou menos pedidos por página, altere este valor
 // (máximo permitido pelo backend: 50).
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 6;
 
 interface Endereco {
   rua: string;
@@ -17,10 +17,11 @@ interface Endereco {
 interface Cliente {
   nome: string;
   telefone: string;
-  endereço: Endereco;
+  endereço: Endereco | null;
 }
 
 interface ItemPedido {
+  id: string;
   produto_id: string;
   nome: string | null;
   quatidade: number;
@@ -88,20 +89,21 @@ function AdminPedidos() {
   }
 
   function handleAnterior() {
-    if (page > 1) {
+    if (page > 1 && !carregando) {
       prepararTrocaDePagina();
-      setPage(page - 1);
+      setPage((p) => p - 1);
     }
   }
 
   function handleProxima() {
-    if (page < totalPages) {
+    if (page < totalPages && !carregando) {
       prepararTrocaDePagina();
-      setPage(page + 1);
+      setPage((p) => p + 1);
     }
   }
 
   function handleAtualizar() {
+    if (carregando) return;
     prepararTrocaDePagina();
     setPage(1);
     setRecarregar((v) => v + 1);
@@ -154,7 +156,9 @@ function AdminPedidos() {
                       <p><strong>{pedido.cliente.nome}</strong></p>
                       <p>{pedido.cliente.telefone}</p>
                       <p>
-                        {pedido.cliente.endereço.rua}, {pedido.cliente.endereço.numero} - {pedido.cliente.endereço.bairro}
+                        {pedido.cliente.endereço
+                          ? `${pedido.cliente.endereço.rua}, ${pedido.cliente.endereço.numero} - ${pedido.cliente.endereço.bairro}`
+                          : 'Endereço não informado'}
                       </p>
                     </div>
                   ) : (
@@ -166,7 +170,7 @@ function AdminPedidos() {
                   <h2>Itens</h2>
                   <div className="admin-pedidos-itens">
                     {pedido.itens.map((item) => (
-                      <div key={item.produto_id} className="admin-pedidos-item">
+                      <div key={item.id} className="admin-pedidos-item">
                         <span className="admin-pedidos-item-nome">{item.nome || 'Produto removido'}</span>
                         <span className="admin-pedidos-item-qtd">{item.quatidade}x</span>
                         <span className="admin-pedidos-item-preco">
@@ -185,7 +189,7 @@ function AdminPedidos() {
               type="button"
               className="admin-pedidos-voltar"
               onClick={handleAnterior}
-              disabled={page <= 1}
+              disabled={carregando || page <= 1}
             >
               Anterior
             </button>
@@ -196,7 +200,7 @@ function AdminPedidos() {
               type="button"
               className="admin-pedidos-voltar"
               onClick={handleProxima}
-              disabled={page >= totalPages}
+              disabled={carregando || page >= totalPages}
             >
               Próxima
             </button>

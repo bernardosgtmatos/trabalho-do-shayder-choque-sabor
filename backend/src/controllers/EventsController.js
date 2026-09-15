@@ -126,11 +126,15 @@ const listPedidos = async (req, res) => {
         const { count, rows } = await Pedido.findAndCountAll({
             include: [
                 { model: Clientes, attributes: ['nome', 'telefone', 'endereço'] },
-                { model: itens_pedido, attributes: ['Produtos', 'quatidade', 'valor'] }
+                { model: itens_pedido, attributes: ['id', 'Produtos', 'quatidade', 'valor'] }
             ],
             order: [['createdAt', 'DESC']],
             limit,
-            offset
+            offset,
+            //distinct conta pedidos únicos (sem ele o JOIN com itens_pedido
+            //infla o count e cria páginas fantasmas vazias)
+            distinct: true,
+            col: 'id'
         });
 
         //busca os nomes dos produtos de uma vez (evita N+1)
@@ -152,6 +156,7 @@ const listPedidos = async (req, res) => {
                 endereço: pedido.Cliente.endereço
             } : null,
             itens: (pedido.itens_pedidos || []).map((item) => ({
+                id: item.id,
                 produto_id: item.Produtos,
                 nome: nomes.get(item.Produtos) || null,
                 quatidade: item.quatidade,
