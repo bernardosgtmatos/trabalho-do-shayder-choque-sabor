@@ -1,0 +1,214 @@
+.admin-login {
+  max-width: 412px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-login-title-bar {
+  background-color: #6824BC;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.admin-login-form {
+  background: white;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-login-form .form-section {
+  margin-bottom: 24px;
+}
+
+.admin-login-form .form-section h2 {
+  font-size: 1rem;
+  color: #4E1199;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  background-color: #FFF700;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.admin-login-form .form-group {
+  margin-bottom: 14px;
+}
+
+.admin-login-form .form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.admin-login-form .form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #D8B8FE;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.admin-login-form .form-group input:focus {
+  outline: none;
+  border-color: #6824BC;
+}
+
+.admin-login .submit-button {
+  width: 100%;
+  padding: 14px;
+  background: #4E1199;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-login .submit-button:hover:not(:disabled) {
+  background: #3a0d73;
+}
+
+.admin-login .submit-button:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.admin-login .mensagem {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-login .mensagem.sucesso {
+  background: #D8B8FE;
+  color: #4E1199;
+}
+
+.admin-login .mensagem.erro {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+@media (max-width: 480px) {
+  .admin-login {
+    padding: 16px;
+  }
+
+  .admin-login-title-bar {
+    padding: 10px 16px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-login-form {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .admin-login-form .form-section {
+    margin-bottom: 20px;
+  }
+
+  .admin-login-form .form-section h2 {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+
+  .admin-login-form .form-group input {
+    padding: 9px 10px;
+    font-size: 0.9rem;
+  }
+
+  .admin-login .submit-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-login {
+    max-width: 600px;
+    padding: 30px;
+  }
+
+  .admin-login-title-bar {
+    padding: 16px 28px;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+  }
+
+  .admin-login-form {
+    padding: 32px;
+    border-radius: 18px;
+  }
+
+  .admin-login-form .form-section h2 {
+    font-size: 1.15rem;
+    padding: 10px 18px;
+    margin-bottom: 14px;
+  }
+
+  .admin-login-form .form-group {
+    margin-bottom: 18px;
+  }
+
+  .admin-login-form .form-group label {
+    font-size: 1rem;
+  }
+
+  .admin-login-form .form-group input {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .admin-login .submit-button {
+    padding: 16px;
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-login {
+    max-width: 700px;
+    padding: 40px;
+  }
+
+  .admin-login-title-bar {
+    padding: 18px 32px;
+    font-size: 1.4rem;
+    margin-bottom: 35px;
+  }
+
+  .admin-login-form {
+    padding: 40px;
+    border-radius: 20px;
+  }
+
+  .admin-login-form .form-section h2 {
+    font-size: 1.2rem;
+    padding: 12px 20px;
+  }
+
+  .admin-login-form .form-group input {
+    padding: 14px 18px;
+  }
+
+  .admin-login .submit-button {
+    padding: 18px;
+    font-size: 1.2rem;
+  }
+}

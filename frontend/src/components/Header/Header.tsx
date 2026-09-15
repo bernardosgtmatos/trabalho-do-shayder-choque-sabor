@@ -17,6 +17,7 @@ function Header() {
         <nav className="nav">
           <Link to="/" className="nav-btn nav-btn-purple">Home</Link>
           <Link to="/cardapio" className="nav-btn nav-btn-purple">Cardápio</Link>
+          <Link to="/admin/pedidos" className="nav-btn nav-btn-purple">Pedidos</Link>
         </nav>
       </div>
     </header>

@@ -1,0 +1,349 @@
+.admin-pedidos {
+  max-width: 412px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-pedidos-title-bar {
+  background-color: #6824BC;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.admin-pedidos-info {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  background: #D8B8FE;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.admin-pedidos-vazio {
+  text-align: center;
+  background: #D8B8FE;
+  padding: 40px 20px;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #4E1199;
+}
+
+.admin-pedidos-erro-box {
+  text-align: center;
+}
+
+.admin-pedidos-erro-box .mensagem.erro {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.admin-pedidos-resumo {
+  text-align: center;
+  color: #4E1199;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+.admin-pedidos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-pedidos-card {
+  background: white;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-pedidos-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.admin-pedidos-data {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.admin-pedidos-total {
+  display: inline-block;
+  background: #4E1199;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 3px 14px;
+  border-radius: 14px;
+  white-space: nowrap;
+}
+
+.admin-pedidos-card .form-section {
+  margin-bottom: 24px;
+}
+
+.admin-pedidos-card .form-section:last-child {
+  margin-bottom: 0;
+}
+
+.admin-pedidos-card .form-section h2 {
+  font-size: 1rem;
+  color: #4E1199;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  background-color: #FFF700;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.admin-pedidos-cliente {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.admin-pedidos-cliente p {
+  margin: 0 0 4px 0;
+}
+
+.admin-pedidos-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-pedidos-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #D8B8FE;
+  border-radius: 10px;
+}
+
+.admin-pedidos-item-nome {
+  flex: 1;
+  font-weight: 600;
+  color: #4E1199;
+  font-size: 0.95rem;
+}
+
+.admin-pedidos-item-qtd {
+  font-weight: 700;
+  color: #6824BC;
+  min-width: 28px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.admin-pedidos-item-preco {
+  font-weight: 700;
+  color: #4E1199;
+  font-size: 0.95rem;
+}
+
+.admin-pedidos-paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.admin-pedidos-pagina {
+  font-weight: 700;
+  color: #4E1199;
+  font-size: 1rem;
+  min-width: 48px;
+  text-align: center;
+}
+
+.admin-pedidos-voltar {
+  display: inline-block;
+  margin-top: 0;
+  padding: 12px 30px;
+  background: #6824BC;
+  color: white;
+  border: none;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-pedidos-vazio .admin-pedidos-voltar,
+.admin-pedidos-erro-box .admin-pedidos-voltar {
+  margin-top: 20px;
+}
+
+.admin-pedidos-voltar:hover:not(:disabled) {
+  background: #4E1199;
+}
+
+.admin-pedidos-voltar:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .admin-pedidos {
+    padding: 16px;
+  }
+
+  .admin-pedidos-title-bar {
+    padding: 10px 16px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-pedidos-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .admin-pedidos-data {
+    font-size: 0.8rem;
+  }
+
+  .admin-pedidos-total {
+    font-size: 0.8rem;
+    padding: 2px 10px;
+  }
+
+  .admin-pedidos-card .form-section h2 {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+
+  .admin-pedidos-cliente {
+    font-size: 0.85rem;
+  }
+
+  .admin-pedidos-item {
+    padding: 8px 10px;
+  }
+
+  .admin-pedidos-item-nome,
+  .admin-pedidos-item-qtd,
+  .admin-pedidos-item-preco {
+    font-size: 0.85rem;
+  }
+
+  .admin-pedidos-paginacao {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .admin-pedidos-voltar {
+    width: 100%;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+
+  .admin-pedidos-vazio {
+    padding: 30px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-pedidos {
+    max-width: 600px;
+    padding: 30px;
+  }
+
+  .admin-pedidos-title-bar {
+    padding: 16px 28px;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+  }
+
+  .admin-pedidos-resumo {
+    font-size: 1.05rem;
+  }
+
+  .admin-pedidos-card {
+    padding: 32px;
+    border-radius: 18px;
+  }
+
+  .admin-pedidos-data {
+    font-size: 1rem;
+  }
+
+  .admin-pedidos-total {
+    font-size: 1rem;
+    padding: 4px 18px;
+  }
+
+  .admin-pedidos-card .form-section h2 {
+    font-size: 1.15rem;
+    padding: 10px 18px;
+    margin-bottom: 14px;
+  }
+
+  .admin-pedidos-cliente {
+    font-size: 1rem;
+  }
+
+  .admin-pedidos-item {
+    padding: 14px 18px;
+  }
+
+  .admin-pedidos-item-nome {
+    font-size: 1.1rem;
+  }
+
+  .admin-pedidos-item-qtd,
+  .admin-pedidos-item-preco {
+    font-size: 1.05rem;
+  }
+
+  .admin-pedidos-voltar {
+    padding: 14px 36px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-pedidos {
+    max-width: 700px;
+    padding: 40px;
+  }
+
+  .admin-pedidos-title-bar {
+    padding: 18px 32px;
+    font-size: 1.4rem;
+    margin-bottom: 35px;
+  }
+
+  .admin-pedidos-card {
+    padding: 40px;
+    border-radius: 20px;
+  }
+
+  .admin-pedidos-card .form-section h2 {
+    font-size: 1.2rem;
+    padding: 12px 20px;
+  }
+
+  .admin-pedidos-item {
+    padding: 16px 20px;
+  }
+}

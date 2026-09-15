@@ -107,4 +107,67 @@ const listProdutos = async (req, res) => {
         return res.status(500).json(`Erro ao listar produtos ${error}`)
     }
 }
-module.exports = {newOrder, newProduct , listProdutos}
+//lista os pedidos para o dono (mais novos primeiro, com paginação)
+const listPedidos = async (req, res) => {
+    let { page = '1', limit = '10' } = req.query;
+    page = Number(page);
+    limit = Number(limit);
+
+    if (!Number.isInteger(page) || page < 1) {
+        return res.status(400).json({ error: 'Parâmetro "page" deve ser um inteiro >= 1.' });
+    }
+    if (!Number.isInteger(limit) || limit < 1 || limit > 50) {
+        return res.status(400).json({ error: 'Parâmetro "limit" deve ser um inteiro entre 1 e 50.' });
+    }
+
+    const offset = (page - 1) * limit;
+
+    try {
+        const { count, rows } = await Pedido.findAndCountAll({
+            include: [
+                { model: Clientes, attributes: ['nome', 'telefone', 'endereço'] },
+                { model: itens_pedido, attributes: ['Produtos', 'quatidade', 'valor'] }
+            ],
+            order: [['createdAt', 'DESC']],
+            limit,
+            offset
+        });
+
+        //busca os nomes dos produtos de uma vez (evita N+1)
+        const produtoIds = [...new Set(
+            rows.flatMap((p) => (p.itens_pedidos || []).map((i) => i.Produtos))
+        )];
+        const produtos = produtoIds.length
+            ? await Produtos.findAll({ where: { id: produtoIds }, attributes: ['id', 'nome'] })
+            : [];
+        const nomes = new Map(produtos.map((p) => [p.id, p.nome]));
+
+        const pedidos = rows.map((pedido) => ({
+            id: pedido.id,
+            valortotal: pedido.valortotal,
+            createdAt: pedido.createdAt,
+            cliente: pedido.Cliente ? {
+                nome: pedido.Cliente.nome,
+                telefone: pedido.Cliente.telefone,
+                endereço: pedido.Cliente.endereço
+            } : null,
+            itens: (pedido.itens_pedidos || []).map((item) => ({
+                produto_id: item.Produtos,
+                nome: nomes.get(item.Produtos) || null,
+                quatidade: item.quatidade,
+                valor: item.valor
+            }))
+        }));
+
+        return res.status(200).json({
+            page,
+            limit,
+            total: count,
+            totalPages: Math.ceil(count / limit),
+            pedidos
+        });
+    } catch (error) {
+        return res.status(500).json({ error: `Erro ao listar pedidos: ${error}` });
+    }
+}
+module.exports = {newOrder, newProduct , listProdutos, listPedidos}
