@@ -2,6 +2,7 @@ const { createClient } = require('@supabase/supabase-js')
 const dotenv = require('dotenv')
 const fs = require('fs')
 const path = require('path')
+const { fotos_cardapio } = require('./src/Utilis/listFotosCardapio.js')
 
 dotenv.config()
 
@@ -15,30 +16,35 @@ if (!supabaseURL || !supabaseAPI || !supabaseBUCKET) {
 }
 
 const supabase = createClient(supabaseURL, supabaseAPI)
+
 // Upload file using standard upload
-async function uploadFile() {
-  const localPath = path.join(__dirname, '../frontend/public/favicon.svg')
+// localPath: caminho absoluto no disco (vem da array)
+// destino no bucket: prefixo fotos_cardapio/ + só o nome do arquivo (sem /home/... e mantendo espaços)
+async function uploadFile(localPath) {
   if (!fs.existsSync(localPath)) {
     console.error('Arquivo local não encontrado:', localPath)
-    process.exit(1)
+    return
   }
   const fileBuffer = fs.readFileSync(localPath)
+  const dest = 'fotos_cardapio/' + path.basename(localPath)
 
-  const { data, error } = await supabase.storage
-    .from(supabaseBUCKET)
-    .upload('teste/favicon.svg', fileBuffer, {
-      contentType: 'image/svg+xml',
-      upsert: true,
-    })
-
+  const { data, error } = await supabase.storage.from(supabaseBUCKET).upload(dest, fileBuffer, {
+    contentType: 'image/svg+xml',
+    upsert: true,
+  })
   if (error) {
-    console.log('Erro ao fazer upload', error)
-    process.exit(1)
     // Handle error
+    console.error(`Erro ao fazer upload de ${localPath}:`, error.message || error)
   } else {
-    console.log('Foto enviada com sucesso:', data.path)
     // Handle success
+    console.log(`imagem: ${localPath} -> ${data.path}, criada com sucesso!`)
   }
 }
 
-uploadFile()
+async function main() {
+  for (const item of fotos_cardapio) {
+    await uploadFile(item)
+  }
+}
+
+main()
