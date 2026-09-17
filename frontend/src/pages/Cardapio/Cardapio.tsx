@@ -8,6 +8,7 @@ interface Produto {
   nome: string;
   'descrição': string;
   valor: number;
+  imageUrl?: string | null;
 }
 
 interface ItemSelecionado {
@@ -92,9 +93,20 @@ function Cardapio() {
               return (
                 <div key={produto.id} className={`cardapio-card ${qtd > 0 ? 'selecionado' : ''}`}>
                   <div className="cardapio-card-imagem">
-                    <span className="cardapio-card-placeholder">
-                      Imagem do produto
-                    </span>
+                    {produto.imageUrl ? (
+                      <img
+                        src={produto.imageUrl}
+                        alt={produto.nome}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <span className="cardapio-card-placeholder">
+                        Imagem do produto
+                      </span>
+                    )}
                   </div>
                   <div className="cardapio-card-info">
                     <h3>{produto.nome}</h3>

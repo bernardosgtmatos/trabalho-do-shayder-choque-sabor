@@ -16,7 +16,8 @@ const Clientes = sequelize.define('Clientes', { //tabela cliente
     },
     telefone:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     endereço:{
         type: DataTypes.JSON,
@@ -43,6 +44,10 @@ const Produtos = sequelize.define('Produtos', { // tabela produtos disponiveis n
         type: DataTypes.DECIMAL(8,2),
         allowNull: false
     },
+    imageUrl:{
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 });
 
 

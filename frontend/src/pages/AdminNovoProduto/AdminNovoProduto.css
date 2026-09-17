@@ -1,0 +1,160 @@
+.admin-novo-produto {
+  max-width: 412px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-novo-produto-title-bar {
+  background-color: #6824BC;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 21px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.admin-novo-produto-form {
+  background: white;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-novo-produto-form .form-section {
+  margin-bottom: 24px;
+}
+
+.admin-novo-produto-form .form-section h2 {
+  font-size: 1rem;
+  color: #4E1199;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  background-color: #FFF700;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.admin-novo-produto-form .form-group {
+  margin-bottom: 14px;
+}
+
+.admin-novo-produto-form .form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.admin-novo-produto-form .form-group input,
+.admin-novo-produto-form .form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #D8B8FE;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.admin-novo-produto-form .form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.admin-novo-produto-form .form-group input:focus,
+.admin-novo-produto-form .form-group textarea:focus {
+  outline: none;
+  border-color: #6824BC;
+}
+
+.admin-novo-produto-form .preview {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.admin-novo-produto-form .preview img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #D8B8FE;
+}
+
+.admin-novo-produto .submit-button {
+  width: 100%;
+  padding: 14px;
+  background: #4E1199;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-novo-produto .submit-button:hover:not(:disabled) {
+  background: #3a0d73;
+}
+
+.admin-novo-produto .submit-button:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.admin-novo-produto .mensagem {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-novo-produto .mensagem.sucesso {
+  background: #D8B8FE;
+  color: #4E1199;
+}
+
+.admin-novo-produto .mensagem.erro {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+@media (max-width: 480px) {
+  .admin-novo-produto {
+    padding: 16px;
+  }
+
+  .admin-novo-produto-title-bar {
+    padding: 10px 16px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-novo-produto-form {
+    padding: 18px;
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-novo-produto {
+    max-width: 600px;
+    padding: 30px;
+  }
+
+  .admin-novo-produto-title-bar {
+    padding: 16px 28px;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+  }
+
+  .admin-novo-produto-form {
+    padding: 32px;
+    border-radius: 18px;
+  }
+}

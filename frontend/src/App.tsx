@@ -4,6 +4,7 @@ import Pedido from './pages/Pedido/Pedido';
 import Cardapio from './pages/Cardapio/Cardapio';
 import AdminLogin from './pages/AdminLogin/AdminLogin';
 import AdminPedidos from './pages/AdminPedidos/AdminPedidos';
+import AdminNovoProduto from './pages/AdminNovoProduto/AdminNovoProduto';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import './App.css';
@@ -22,6 +23,7 @@ function AppContent() {
           <Route path="/pedido" element={<Pedido />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/pedidos" element={<AdminPedidos />} />
+          <Route path="/admin/novo-produto" element={<AdminNovoProduto />} />
         </Routes>
       </main>
       {!isHome && <Footer />}

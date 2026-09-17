@@ -113,6 +113,16 @@ function AdminPedidos() {
         <span>Pedidos Recebidos</span>
       </div>
 
+      <div className="admin-pedidos-acoes">
+        <button
+          type="button"
+          className="admin-pedidos-voltar"
+          onClick={() => navigate('/admin/novo-produto')}
+        >
+          Novo produto
+        </button>
+      </div>
+
       {carregando ? (
         <p className="admin-pedidos-info">Carregando pedidos...</p>
       ) : erro ? (

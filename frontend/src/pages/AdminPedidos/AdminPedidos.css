@@ -12,6 +12,12 @@
   border-radius: 21px;
   font-weight: 700;
   font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.admin-pedidos-acoes {
+  display: flex;
+  justify-content: center;
   margin-bottom: 25px;
 }
 

@@ -1,23 +1,59 @@
 const {Clientes, Produtos, Pedido, itens_pedido} = require('../models/EventModel.js') 
 const sequelize = require('../config/Database.js')
 const FormatPhone = require('../Utilis/formatPhone.js')
-const { combineTableNames } = require('sequelize/lib/utils')
+const {supabase, Bucket} = require('../config/supabase.js')
+const path = require('path')
+const {randomUUID} = require('crypto')
+const { fromBuffer: fileTypeFromBuffer } = require('file-type')
 
 const newProduct = async (req, res) => { //adciona um produto a tabela 
     const {nome, descrição, valor } = req.body
     if (!nome||!descrição||!valor){
         return res.status(400).json('todos os campos devem ser preenchidos!!')
     }
+    if (!req.file){
+        return res.status(400).json('Imagem do produto é obrigatória!')
+    }
+    const realExt = await fileTypeFromBuffer(req.file.buffer) //retonar em obj a real extensão do arquivo ext: 'png' , mime: image/png or undefined
+    if(!realExt){
+        return res.status(400).json('Tipo do arquivo incorreto!, apenas permitido arquivos de imagem!')
+    }
     try {
-        const newProduct = await Produtos.create({
-            nome,
-            descrição,
-            valor
-        })
-        return res.status(200).json('produto adicionado a tabela com sucesso!')
+        if (req.file.mimetype !== realExt.mime){
+            // const falseExtAlert = true
+            console.log(`req.file.mimetype is ${req.file.mimetype} and realExt is ${realExt}`);
+            return res.status(400).json('extensão do arquivo não confere o conteudo!')
+        }
+        // const extensão = path.extname(req.file.originalname) || '.png' //extrai extensão do nome do arquivo se for null define como .png
+        const dest = `fotos_cardapio/${randomUUID()}.${realExt.ext}` //cria destino com randonUUID e chama a variavel de extensão 
+        const { error: uploadError } = await supabase.storage // {error : uploadError } pega a propriedade error de dentro do supabase e renomeia para uploadError e tranforma em uma variavel
+            .from(Bucket)
+            .upload(dest, req.file.buffer,{
+            contentType : realExt.mime,
+            upsert: false
+        });
+        if(uploadError){
+            return res.status(500).json(`error no upload da imagem (uploadError): ${uploadError.message}`)
+        }
+        const { data } = supabase.storage.from(Bucket).getPublicUrl(dest);
+        console.log(`url da imagem = ${data.publicUrl}`)
+        
+        try {
+            const produto = await Produtos.create({
+                nome,
+                descrição,
+                valor,
+                imageUrl: data.publicUrl,
+            })
+            return res.status(201).json('produto adicionado a tabela com sucesso!')
+        } catch (error) {
+            await supabase.storage.from(Bucket).remove([dest]) // remove ([array])
+            return res.status(500).json({
+                error: `erro ao adiocinar novo produto a tabela ${error}`})
+        }    
     } catch (error) {
-        return res.status(500).json({
-            error: `erro ao adiocinar novo produto a tabela ${error}`})
+        console.log(error);
+        return res.status(500).json('erro ao dar upload na imagem, tente novamente')
     }
 }
 //tenho que descobrir como por exemplo um item a tabela for adicionado a essa tabela, como eu redireciono a informação json para a tabela de produtos
@@ -100,7 +136,7 @@ const newOrder = async (req, res) => { // func de criação de pedido
 const listProdutos = async (req, res) => {
     try {
         const produtos = await Produtos.findAll({
-            attributes: ['id', 'nome', 'descrição', 'valor']
+            attributes: ['id', 'nome', 'descrição', 'valor', 'imageUrl']
         });
         return res.status(200).json(produtos)
     } catch (error) {
