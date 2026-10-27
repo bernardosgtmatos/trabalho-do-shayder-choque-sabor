@@ -26,13 +26,38 @@ function Pedido() {
   const [numero, setNumero] = useState('');
   const [bairro, setBairro] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [errors, setErrors] = useState<{ nome?: string; telefone?: string; rua?: string; numero?: string; bairro?: string }>({});
+  const [touched, setTouched] = useState<{ nome?: boolean; telefone?: boolean; rua?: boolean; numero?: boolean; bairro?: boolean }>({});
 
   function calcularTotal(): number {
     return itens.reduce((total, item) => total + (item.valor * item.quatidade), 0);
   }
 
+  function validate() {
+    const next: { nome?: string; telefone?: string; rua?: string; numero?: string; bairro?: string } = {};
+    if (!nome.trim()) next.nome = 'Nome é obrigatório.';
+    if (!telefone.trim()) next.telefone = 'Telefone é obrigatório.';
+    if (!rua.trim()) next.rua = 'Rua é obrigatória.';
+    if (!numero.trim()) next.numero = 'Número é obrigatório.';
+    if (!bairro.trim()) next.bairro = 'Bairro é obrigatório.';
+    return next;
+  }
+
+  function handleBlur(field: 'nome' | 'telefone' | 'rua' | 'numero' | 'bairro') {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    setErrors(validate());
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    setTouched({ nome: true, telefone: true, rua: true, numero: true, bairro: true });
+    if (Object.keys(nextErrors).length > 0) {
+      setMensagem('Corrija os campos destacados.');
+      return;
+    }
 
     if (itens.length === 0) {
       setMensagem('Nenhum item no pedido. Volte ao cardápio.');
@@ -67,6 +92,8 @@ function Pedido() {
     }
   }
 
+  const isValid = Object.keys(validate()).length === 0;
+
   if (itens.length === 0) {
     return (
       <div className="pedido">
@@ -75,7 +102,7 @@ function Pedido() {
         </div>
         <div className="pedido-vazio">
           <p>Nenhum item selecionado.</p>
-          <button type="button" className="pedido-voltar" onClick={() => navigate('/cardapio')}>
+          <button type="button" className="btn btn-secondary" onClick={() => navigate('/cardapio')}>
             Voltar ao Cardápio
           </button>
         </div>
@@ -117,9 +144,11 @@ function Pedido() {
               className="form-control"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
+              onBlur={() => handleBlur('nome')}
               placeholder="Seu nome completo"
               required
             />
+            {touched.nome && errors.nome && <span className="field-error">{errors.nome}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="telefone">Telefone</label>
@@ -129,9 +158,11 @@ function Pedido() {
               className="form-control"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
+              onBlur={() => handleBlur('telefone')}
               placeholder="(11) 99999-9999"
               required
             />
+            {touched.telefone && errors.telefone && <span className="field-error">{errors.telefone}</span>}
           </div>
         </div>
 
@@ -145,9 +176,11 @@ function Pedido() {
               className="form-control"
               value={rua}
               onChange={(e) => setRua(e.target.value)}
+              onBlur={() => handleBlur('rua')}
               placeholder="Nome da rua"
               required
             />
+            {touched.rua && errors.rua && <span className="field-error">{errors.rua}</span>}
           </div>
           <div className="form-row">
             <div className="form-group">
@@ -158,9 +191,11 @@ function Pedido() {
               className="form-control"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
+                onBlur={() => handleBlur('numero')}
                 placeholder="Nº"
                 required
               />
+              {touched.numero && errors.numero && <span className="field-error">{errors.numero}</span>}
             </div>
             <div className="form-group">
               <label htmlFor="bairro">Bairro</label>
@@ -170,14 +205,16 @@ function Pedido() {
               className="form-control"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
+                onBlur={() => handleBlur('bairro')}
                 placeholder="Bairro"
                 required
               />
+              {touched.bairro && errors.bairro && <span className="field-error">{errors.bairro}</span>}
             </div>
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn btn-primary btn-block" disabled={!isValid}>
           Finalizar Pedido
         </button>
       </form>

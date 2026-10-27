@@ -36,6 +36,8 @@ function AdminNovoProduto() {
   const [mensagem, setMensagem] = useState('');
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [errors, setErrors] = useState<{ nome?: string; descricao?: string; valor?: string; categoria?: string; imagem?: string }>({});
+  const [touched, setTouched] = useState<{ nome?: boolean; descricao?: boolean; valor?: boolean; categoria?: boolean; imagem?: boolean }>({});
 
   useEffect(() => {
     return () => {
@@ -106,28 +108,36 @@ function AdminNovoProduto() {
     }
   }
 
+  function validate() {
+    const next: { nome?: string; descricao?: string; valor?: string; categoria?: string; imagem?: string } = {};
+    if (!nome.trim()) next.nome = 'Nome é obrigatório.';
+    if (!descricao.trim()) next.descricao = 'Descrição é obrigatória.';
+    const valorNumero = Number(valor.replace(',', '.'));
+    if (!valor.trim()) next.valor = 'Valor é obrigatório.';
+    else if (!Number.isFinite(valorNumero) || valorNumero <= 0) next.valor = 'Valor deve ser maior que zero.';
+    if (!categoria) next.categoria = 'Selecione uma categoria.';
+    if (!imagem) next.imagem = 'Imagem é obrigatória.';
+    return next;
+  }
+
+  function handleBlur(field: 'nome' | 'descricao' | 'valor' | 'categoria' | 'imagem') {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    setErrors(validate());
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMensagem('');
     setSucesso(false);
 
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    setTouched({ nome: true, descricao: true, valor: true, categoria: true, imagem: true });
+    if (Object.keys(nextErrors).length > 0) {
+      setMensagem('Corrija os campos destacados.');
+      return;
+    }
     const valorNumero = Number(valor.replace(',', '.'));
-    if (!nome.trim() || !descricao.trim() || !valor.trim()) {
-      setMensagem('Todos os campos devem ser preenchidos!');
-      return;
-    }
-    if (!Number.isFinite(valorNumero) || valorNumero <= 0) {
-      setMensagem('Valor deve ser um número maior que zero.');
-      return;
-    }
-    if (!categoria) {
-      setMensagem('Selecione uma categoria!');
-      return;
-    }
-    if (!imagem) {
-      setMensagem('Imagem do produto é obrigatória!');
-      return;
-    }
 
     setCarregando(true);
     try {
@@ -136,7 +146,7 @@ function AdminNovoProduto() {
       form.append('descrição', descricao.trim());
       form.append('valor', String(valorNumero.toFixed(2)));
       form.append('categoria', categoria);
-      form.append('imagem', imagem);
+      if (imagem) form.append('imagem', imagem);
 
       await api.post('/Admin/NovoProduto', form);
       setMensagem('Produto adicionado com sucesso!');
@@ -155,6 +165,7 @@ function AdminNovoProduto() {
   }
 
   const semCategorias = !carregandoCategorias && categorias.length === 0;
+  const isValid = Object.keys(validate()).length === 0;
 
   return (
     <div className="admin-novo-produto">
@@ -173,9 +184,11 @@ function AdminNovoProduto() {
               className="form-control"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
+              onBlur={() => handleBlur('nome')}
               placeholder="Ex: Coxinha de frango"
               required
             />
+            {touched.nome && errors.nome && <span className="field-error">{errors.nome}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="descricao">Descrição</label>
@@ -184,9 +197,11 @@ function AdminNovoProduto() {
               className="form-control"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
+              onBlur={() => handleBlur('descricao')}
               placeholder="Descreva o produto"
               required
             />
+            {touched.descricao && errors.descricao && <span className="field-error">{errors.descricao}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="valor">Valor (R$)</label>
@@ -196,11 +211,13 @@ function AdminNovoProduto() {
               className="form-control"
               value={valor}
               onChange={(e) => setValor(e.target.value)}
+              onBlur={() => handleBlur('valor')}
               placeholder="8.50"
               min="0.01"
               step="0.01"
               required
             />
+            {touched.valor && errors.valor && <span className="field-error">{errors.valor}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="categoria">Categoria</label>
@@ -209,19 +226,23 @@ function AdminNovoProduto() {
             ) : semCategorias ? (
               <p className="mensagem erro">Nenhuma categoria cadastrada. Crie uma abaixo.</p>
             ) : (
-              <select
-                id="categoria"
-                className="form-control"
-                value={categoria}
-                onChange={(e) => setCategoria(e.target.value)}
-                required
-              >
-                {categorias.map((c) => (
-                  <option key={c.id} value={c.nome}>
-                    {c.nome}
-                  </option>
-                ))}
-              </select>
+              <>
+                <select
+                  id="categoria"
+                  className="form-control"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  onBlur={() => handleBlur('categoria')}
+                  required
+                >
+                  {categorias.map((c) => (
+                    <option key={c.id} value={c.nome}>
+                      {c.nome}
+                    </option>
+                  ))}
+                </select>
+                {touched.categoria && errors.categoria && <span className="field-error">{errors.categoria}</span>}
+              </>
             )}
           </div>
           {semCategorias ? (
@@ -243,8 +264,10 @@ function AdminNovoProduto() {
               id="imagem"
               accept="image/jpeg,image/png,image/webp,image/svg+xml"
               onChange={handleImagemChange}
+              onBlur={() => handleBlur('imagem')}
               required
             />
+            {touched.imagem && errors.imagem && <span className="field-error">{errors.imagem}</span>}
           </div>
           {preview && (
             <div className="preview">
@@ -253,7 +276,7 @@ function AdminNovoProduto() {
           )}
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block" disabled={carregando || semCategorias}>
+        <button type="submit" className="btn btn-primary btn-block" disabled={carregando || semCategorias || !isValid}>
           {carregando ? 'Salvando...' : 'Cadastrar produto'}
         </button>
       </form>

@@ -10,16 +10,29 @@ function AdminNovaCategoria() {
   const [mensagem, setMensagem] = useState('');
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [errors, setErrors] = useState<{ nome?: string }>({});
+  const [touched, setTouched] = useState<{ nome?: boolean }>({});
+
+  function validate() {
+    const next: { nome?: string } = {};
+    if (!nome.trim()) next.nome = 'O nome da categoria é obrigatório.';
+    else if (nome.trim().length < 2) next.nome = 'Use ao menos 2 caracteres.';
+    return next;
+  }
+
+  function handleBlur() {
+    setTouched({ nome: true });
+    setErrors(validate());
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMensagem('');
     setSucesso(false);
-
-    if (!nome.trim()) {
-      setMensagem('O nome da categoria é obrigatório.');
-      return;
-    }
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    setTouched({ nome: true });
+    if (Object.keys(nextErrors).length > 0) return;
 
     setCarregando(true);
     try {
@@ -41,6 +54,8 @@ function AdminNovaCategoria() {
     }
   }
 
+  const isValid = Object.keys(validate()).length === 0;
+
   return (
     <div className="admin-nova-categoria">
       <div className="admin-nova-categoria-title-bar">
@@ -60,11 +75,13 @@ function AdminNovaCategoria() {
               placeholder="Ex: Salgados"
               className="form-control"
               required
+              onBlur={handleBlur}
             />
+            {touched.nome && errors.nome && <span className="field-error">{errors.nome}</span>}
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block" disabled={carregando}>
+        <button type="submit" className="btn btn-primary btn-block" disabled={carregando || !isValid}>
           {carregando ? 'Salvando...' : 'Criar categoria'}
         </button>
         <button

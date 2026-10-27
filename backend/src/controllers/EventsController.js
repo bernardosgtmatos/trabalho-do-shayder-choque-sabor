@@ -1,4 +1,5 @@
-const {Clientes, Produtos, Pedido, itens_pedido, categoria} = require('../models/EventModel.js') 
+const {Clientes, Produtos, Pedido, itens_pedido, categoria} = require('../models/EventModel.js')
+const { Op } = require('sequelize')
 const sequelize = require('../config/Database.js')
 const FormatPhone = require('../Utilis/formatPhone.js')
 const {supabase, Bucket} = require('../config/supabase.js')
@@ -227,8 +228,14 @@ const listPedidos = async (req, res) => {
     }
 }
 
+const SORT_COLUMNS = {
+    recentes: 'createdAt',
+    nome: 'nome',
+    preco: 'valor',
+};
+
 const listProdutosAdmin = async (req, res) => {
-    let { page = '1', limit = '10' } = req.query;
+    let { page = '1', limit = '10', search = '', categoria = '', sort = 'recentes', order = 'desc' } = req.query;
     page = Number(page);
     limit = Number(limit);
 
@@ -239,10 +246,25 @@ const listProdutosAdmin = async (req, res) => {
         return res.status(400).json({ error: 'Parâmetro "limit" deve ser um inteiro entre 1 e 50.' });
     }
 
+    const sortColumn = SORT_COLUMNS[sort];
+    if (!sortColumn) {
+        return res.status(400).json({ error: 'Parâmetro "sort" inválido.' });
+    }
+    const sortOrder = String(order).toLowerCase() === 'asc' ? 'ASC' : 'DESC';
+
+    const where = {};
+    if (search && String(search).trim()) {
+        where.nome = { [Op.like]: `%${String(search).trim()}%` };
+    }
+    if (categoria && String(categoria).trim()) {
+        where.categoria = String(categoria).trim();
+    }
+
     const offset = (page - 1) * limit;
     try {
         const { count, rows } = await Produtos.findAndCountAll({
-            order: [['createdAt', 'DESC']],
+            where,
+            order: [[sortColumn, sortOrder]],
             limit,
             offset,
         });

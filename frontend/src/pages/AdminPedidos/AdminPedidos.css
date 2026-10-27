@@ -177,7 +177,7 @@
   text-align: center;
 }
 
-.admin-pedidos-voltar {
+.btn btn-secondary {
   display: inline-block;
   margin-top: 0;
   padding: 12px 30px;
@@ -191,16 +191,16 @@
   transition: background 0.2s;
 }
 
-.admin-pedidos-vazio .admin-pedidos-voltar,
-.admin-pedidos-erro-box .admin-pedidos-voltar {
+.admin-pedidos-vazio .btn btn-secondary,
+.admin-pedidos-erro-box .btn btn-secondary {
   margin-top: 20px;
 }
 
-.admin-pedidos-voltar:hover:not(:disabled) {
+.btn btn-secondary:hover:not(:disabled) {
   background: #4E1199;
 }
 
-.admin-pedidos-voltar:disabled {
+.btn btn-secondary:disabled {
   background: #ccc;
   color: #999;
   cursor: not-allowed;
@@ -256,7 +256,7 @@
     margin-top: 20px;
   }
 
-  .admin-pedidos-voltar {
+  .btn btn-secondary {
     width: 100%;
     padding: 10px 24px;
     font-size: 0.95rem;
@@ -321,7 +321,7 @@
     font-size: 1.05rem;
   }
 
-  .admin-pedidos-voltar {
+  .btn btn-secondary {
     padding: 14px 36px;
     font-size: 1.1rem;
   }

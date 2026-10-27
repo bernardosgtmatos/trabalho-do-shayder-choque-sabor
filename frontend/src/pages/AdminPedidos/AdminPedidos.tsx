@@ -116,7 +116,7 @@ function AdminPedidos() {
       <div className="admin-pedidos-acoes">
         <button
           type="button"
-          className="admin-pedidos-voltar"
+          className="btn btn-secondary"
 onClick={() => navigate('/admin/produtos')}
 >
           Gerenciar produtos
@@ -128,14 +128,14 @@ onClick={() => navigate('/admin/produtos')}
       ) : erro ? (
         <div className="admin-pedidos-erro-box">
           <p className="mensagem erro">{erro}</p>
-          <button type="button" className="admin-pedidos-voltar" onClick={handleAtualizar}>
+          <button type="button" className="btn btn-secondary" onClick={handleAtualizar}>
             Tentar Novamente
           </button>
         </div>
       ) : pedidos.length === 0 ? (
         <div className="admin-pedidos-vazio">
           <p>Nenhum pedido recebido ainda.</p>
-          <button type="button" className="admin-pedidos-voltar" onClick={handleAtualizar}>
+          <button type="button" className="btn btn-secondary" onClick={handleAtualizar}>
             Atualizar
           </button>
         </div>
@@ -193,7 +193,7 @@ onClick={() => navigate('/admin/produtos')}
           <div className="admin-pedidos-paginacao">
             <button
               type="button"
-              className="admin-pedidos-voltar"
+              className="btn btn-secondary"
               onClick={handleAnterior}
               disabled={page <= 1}
             >
@@ -204,7 +204,7 @@ onClick={() => navigate('/admin/produtos')}
             </span>
             <button
               type="button"
-              className="admin-pedidos-voltar"
+              className="btn btn-secondary"
               onClick={handleProxima}
               disabled={page >= totalPages}
             >
