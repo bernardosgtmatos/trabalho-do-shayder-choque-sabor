@@ -117,9 +117,9 @@ function AdminPedidos() {
         <button
           type="button"
           className="admin-pedidos-voltar"
-          onClick={() => navigate('/admin/novo-produto')}
-        >
-          Novo produto
+onClick={() => navigate('/admin/produtos')}
+>
+          Gerenciar produtos
         </button>
       </div>
 

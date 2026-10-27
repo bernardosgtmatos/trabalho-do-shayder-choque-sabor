@@ -55,4 +55,15 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = {CreateUser, login}
+const me = async (req, res) => {
+    try {
+        return res.status(200).json({
+            id: req.user?.id,
+            email: req.user?.email
+        })
+    } catch (error) {
+        return res.status(500).json(`Erro ao buscar usuário logado: ${error}`)
+    }
+}
+
+module.exports = {CreateUser, login, me}

@@ -56,3 +56,131 @@ h2 {
 p {
   margin: 0;
 }
+
+/* Shared form controls */
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #D8B8FE;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fff;
+  color: #333;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6824BC;
+  box-shadow: 0 0 0 3px rgba(104, 36, 188, 0.15);
+}
+
+textarea.form-control {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Shared buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.05s;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #4E1199;
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #3a0d73;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #565e64;
+}
+
+.btn-danger {
+  background: #c0392b;
+  color: #fff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #a93226;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #4E1199;
+  border: 2px solid #D8B8FE;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: #f3e9ff;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Standardize common action buttons */
+.submit-button {
+  background: #4E1199;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #3a0d73;
+}
+
+.admin-pedidos-voltar,
+.admin-produtos-voltar,
+.pedido-voltar {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+}
+
+.admin-pedidos-voltar:hover:not(:disabled),
+.admin-produtos-voltar:hover:not(:disabled),
+.pedido-voltar:hover:not(:disabled) {
+  background: #565e64;
+}
+
+.admin-produtos-card-acoes button {
+  background: #D8B8FE;
+  color: #4E1199;
+  border: none;
+  border-radius: 8px;
+}
+
+.admin-produtos-card-acoes button:last-child {
+  background: #f8d7da;
+  color: #721c24;
+}

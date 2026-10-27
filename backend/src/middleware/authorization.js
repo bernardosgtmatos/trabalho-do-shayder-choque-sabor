@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
 
     try {
         const validToken = jwt.verify(token, process.env.JWT_SECRET)
+        req.user = validToken
         next()
     } catch (error) {
         return res.status(401).json(`Token inválido, ${error}`)

@@ -114,6 +114,7 @@ function Pedido() {
             <input
               type="text"
               id="nome"
+              className="form-control"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               placeholder="Seu nome completo"
@@ -125,6 +126,7 @@ function Pedido() {
             <input
               type="tel"
               id="telefone"
+              className="form-control"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               placeholder="(11) 99999-9999"
@@ -140,6 +142,7 @@ function Pedido() {
             <input
               type="text"
               id="rua"
+              className="form-control"
               value={rua}
               onChange={(e) => setRua(e.target.value)}
               placeholder="Nome da rua"
@@ -152,6 +155,7 @@ function Pedido() {
               <input
                 type="text"
                 id="numero"
+              className="form-control"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
                 placeholder="Nº"
@@ -163,6 +167,7 @@ function Pedido() {
               <input
                 type="text"
                 id="bairro"
+              className="form-control"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
                 placeholder="Bairro"
@@ -172,7 +177,7 @@ function Pedido() {
           </div>
         </div>
 
-        <button type="submit" className="submit-button">
+        <button type="submit" className="btn btn-primary btn-block">
           Finalizar Pedido
         </button>
       </form>

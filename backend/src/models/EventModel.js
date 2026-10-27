@@ -44,6 +44,11 @@ const Produtos = sequelize.define('Produtos', { // tabela produtos disponiveis n
         type: DataTypes.DECIMAL(8,2),
         allowNull: false
     },
+    categoria:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        references:{model: 'categoria', key: 'nome' }
+    },
     imageUrl:{
         type: DataTypes.STRING,
         allowNull: false
@@ -97,6 +102,20 @@ const itens_pedido = sequelize.define('itens_pedido', { // para cada produto dif
     }
 });
 
+const categoria = sequelize.define('categoria',{
+    id:{
+        type: DataTypes.UUID,
+        defaultValue: UUIDV4,
+        allowNull: false,
+        primaryKey: true
+    },
+    nome:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    }
+})
+
 //relacionamento
 Clientes.hasMany(Pedido,{ foreignKey: 'cliente_id' }); //Um cliente tem muitos pedidos
 Pedido.belongsTo(Clientes, { foreignKey: 'cliente_id' }); //Um pedido pertence a um cliente
@@ -104,10 +123,14 @@ Pedido.belongsTo(Clientes, { foreignKey: 'cliente_id' }); //Um pedido pertence a
 Pedido.hasMany(itens_pedido, { foreignKey: 'Pedido_id' }); //Um pedido tem muitos itens
 itens_pedido.belongsTo(Pedido, { foreignKey: 'Pedido_id' }); //Um item pertence a um pedido
 
+// tem que fazero relacionamento da tabela categoria com produto, um produto pode ter uma categoria, mas , categoria pode ter varios produtos.
+categoria.hasMany(Produtos,{foreignKey: 'categoria', sourceKey: 'nome'});
+Produtos.belongsTo(categoria,{foreignKey: 'categoria', targetKey: 'nome'})
+
 
 // Clientes.sync({alter: true});
 // Produtos.sync({alter: true});
 // Pedido.sync({alter: true});
 // itens_pedido.sync({alter: true});
 
-module.exports = {Clientes, Produtos, Pedido, itens_pedido}
+module.exports = {Clientes, Produtos, Pedido, itens_pedido, categoria}

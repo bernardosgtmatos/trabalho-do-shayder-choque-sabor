@@ -52,6 +52,7 @@ function AdminLogin() {
             <input
               type="email"
               id="email"
+              className="form-control"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="email@loja.com"
@@ -63,6 +64,7 @@ function AdminLogin() {
             <input
               type="password"
               id="senha"
+              className="form-control"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Sua senha"
@@ -71,7 +73,7 @@ function AdminLogin() {
           </div>
         </div>
 
-        <button type="submit" className="submit-button" disabled={carregando}>
+        <button type="submit" className="btn btn-primary btn-block" disabled={carregando}>
           {carregando ? 'Entrando...' : 'Entrar'}
         </button>
       </form>
